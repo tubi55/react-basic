@@ -98,25 +98,34 @@ export default function Contact() {
 	const sendEmail = (e) => {
 		e.preventDefault();
 
-		emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
-			.then((result) => {
-					alert('문의내용이 메일로 발송되었습니다.')
-			}, (error) => {
-					alert('문의내용 전송에 실패했습니다.')
-			});
-	
+		emailjs
+			.sendForm(
+				'service_uozay9s',
+				'template_yjtcc6u',
+				form.current,
+				'23g8RepczesqKPoIX'
+			)
+			.then(
+				(result) => {
+					alert('문의내용이 메일로 발송되었습니다.');
+				},
+				(error) => {
+					alert('문의내용 전송에 실패했습니다.');
+				}
+			);
+	};
 
 	return (
 		<Layout title={'Contact'}>
 			<div id='mailBox'>
 				<form ref={form} onSubmit={sendEmail}>
 					<label>Name</label>
-					<input type="text" name="user_name" />
+					<input type='text' name='user_name' />
 					<label>Email</label>
-					<input type="email" name="user_email" />
+					<input type='email' name='user_email' />
 					<label>Message</label>
-					<textarea name="message" />
-					<input type="submit" value="Send" />
+					<textarea name='message' />
+					<input type='submit' value='Send' />
 				</form>
 			</div>
 
