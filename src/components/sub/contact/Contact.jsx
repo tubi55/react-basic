@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Layout from '../../common/layout/Layout';
 import './Contact.scss';
+import emailjs from '@emailjs/browser';
 import { useRef, useEffect, useState } from 'react';
 
 export default function Contact() {
+	const form = useRef(null);
 	const map = useRef(null);
 	const view = useRef(null);
 	const instance = useRef(null);
@@ -92,34 +94,29 @@ export default function Contact() {
 			: instance.current.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
 	}, [Traffic]);
 
+	//form mail 기능함수
 	const sendEmail = (e) => {
 		e.preventDefault();
 
-		emailjs.sendForm('contact_service', 'contact_form', this).then(
-			() => {
-				window.alert('문의내용이 메일로 전송완료되었습니다.');
-			},
-			(error) => {
-				window.alert('문의내용 전송에 실패했습니다.');
-			}
-		);
-	};
-
-	//form-mail관련 useEffect
-	useEffect(() => {}, []);
+		emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+			.then((result) => {
+					alert('문의내용이 메일로 발송되었습니다.')
+			}, (error) => {
+					alert('문의내용 전송에 실패했습니다.')
+			});
+	
 
 	return (
 		<Layout title={'Contact'}>
 			<div id='mailBox'>
-				<form id='contact-form'>
-					<input type='hidden' name='contact_number' />
+				<form ref={form} onSubmit={sendEmail}>
 					<label>Name</label>
-					<input type='text' name='user_name' />
+					<input type="text" name="user_name" />
 					<label>Email</label>
-					<input type='email' name='user_email' />
+					<input type="email" name="user_email" />
 					<label>Message</label>
-					<textarea name='message'></textarea>
-					<input type='submit' value='Send' />
+					<textarea name="message" />
+					<input type="submit" value="Send" />
 				</form>
 			</div>
 
