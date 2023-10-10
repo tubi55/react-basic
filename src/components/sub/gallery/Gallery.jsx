@@ -12,6 +12,7 @@ export default function Gallery() {
 	const my_id = '164021883@N04';
 
 	const fetchData = async (opt) => {
+		let count = 0;
 		setLoader(true);
 		refFrame.current.classList.remove('on');
 		let url = '';
@@ -19,7 +20,7 @@ export default function Gallery() {
 		const method_interest = 'flickr.interestingness.getList';
 		const method_user = 'flickr.people.getPhotos';
 		const method_search = 'flickr.photos.search';
-		const num = 100;
+		const num = 10;
 
 		//fetching함수 호출시 타입값이 있는 객체를 인수로 전달하면 해당 타입에 따라 호출 URL이 변경되고
 		//해당URL을 통해 받아지는 데이터로 달라짐
@@ -42,14 +43,16 @@ export default function Gallery() {
 		//실제 데이터가 state에 담기는 순간 가상돔이 생성되는 순간
 		setPics(json.photos.photo);
 
-		let count = 0;
 		const imgs = refFrame.current?.querySelectorAll('img');
+		console.log(imgs);
 
-		imgs.forEach((img, idx) => {
+		imgs.forEach((img) => {
 			img.onload = () => {
 				++count;
 				console.log('현재 로딩된 img갯수', count);
-				if (count === imgs.length) {
+				//interest gallery에서 특정 사용자 갤러리 호출시 이미 interest화면에서 2개의 이미지 이미 캐싱처리 되어 있기 때문에
+				//전체 이미지 갯수에서 -2를 빼줘야지 무한로딩 오류 해결
+				if (count === imgs.length - 2) {
 					console.log('모든 이미지 소스 렌더링 완료!');
 					//모든 소스이미지라 렌더링완료되면 Loader값을 false로 바꿔서 로딩이미지 제거
 					setLoader(false);
