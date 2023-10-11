@@ -18,18 +18,22 @@ export default function Department() {
 
 	return (
 		<Layout title={'Department'}>
-			<div className='memberBox'>
-				{Department.map((member, idx) => {
-					return (
-						<article key={idx}>
-							<div className='pic'>
-								<img src={`${path}/img/${member.pic}`} alt={member.name} />
-							</div>
-							<h2>{member.name}</h2>
-							<p>{member.position}</p>
-						</article>
-					);
-				})}
+			<div className='container'>
+				<div className='infoBox'></div>
+
+				<div className='memberBox'>
+					{Department.map((member, idx) => {
+						return (
+							<article key={idx}>
+								<div className='pic'>
+									<img src={`${path}/img/${member.pic}`} alt={member.name} />
+								</div>
+								<h2>{member.name}</h2>
+								<p>{member.position}</p>
+							</article>
+						);
+					})}
+				</div>
 			</div>
 		</Layout>
 	);
