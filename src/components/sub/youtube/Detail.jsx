@@ -20,6 +20,7 @@ function Detail() {
 				setData(json.items[0].snippet);
 			});
 	}, []);
+
 	return (
 		<Layout title={'Detail'}>
 			<h2>{Data?.title}</h2>
