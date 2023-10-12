@@ -1,6 +1,8 @@
 import Layout from '../../common/layout/Layout';
 import './Youtube.scss';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 export default function Youtube() {
 	const [Youtube, setYoutube] = useState([]);
 
@@ -41,10 +43,12 @@ export default function Youtube() {
 							</div>
 
 							<div className='picBox'>
-								<img
-									src={data.snippet.thumbnails.standard.url}
-									alt={data.title}
-								/>
+								<Link to={`/detail/${data.snippet.resourceId.videoId}`}>
+									<img
+										src={data.snippet.thumbnails.standard.url}
+										alt={data.title}
+									/>
+								</Link>
 							</div>
 						</article>
 					);
