@@ -5,9 +5,24 @@
 
 	.content {
 		width: 100%;
+		position: relative;
+
+		&::before {
+			content: '';
+			display: block;
+			width: 80%;
+			height: 200px;
+			background: #ddd;
+			position: absolute;
+			right: 0px;
+			top: 0px;
+		}
 
 		h1 {
-			text-align: center;
+			width: 70vw;
+			margin: 150px auto;
+			text-align: left;
+			position: relative;
 		}
 
 		.upperBox {
