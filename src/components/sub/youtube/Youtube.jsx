@@ -1,12 +1,8 @@
 import Layout from '../../common/layout/Layout';
-import { Link } from 'react-router-dom';
-//import Modal from '../../common/modal/Modal';
 import './Youtube.scss';
 import { useEffect, useState } from 'react';
 export default function Youtube() {
 	const [Youtube, setYoutube] = useState([]);
-	const [IsModal, setIsModal] = useState(false);
-	const [Index, setIndex] = useState(0);
 
 	//async await로 동기화 코드를 좀더 깔끔하게 정리
 	const fetchYoutube = async () => {
@@ -44,19 +40,11 @@ export default function Youtube() {
 								<span>{date.split('T')[0].split('-').join('.')}</span>
 							</div>
 
-							<div
-								className='picBox'
-								onClick={() => {
-									setIndex(idx);
-									setIsModal(true);
-								}}
-							>
-								<Link to={`/youtube/${idx}`}>
-									<img
-										src={data.snippet.thumbnails.standard.url}
-										alt={data.title}
-									/>
-								</Link>
+							<div className='picBox'>
+								<img
+									src={data.snippet.thumbnails.standard.url}
+									alt={data.title}
+								/>
 							</div>
 						</article>
 					);
