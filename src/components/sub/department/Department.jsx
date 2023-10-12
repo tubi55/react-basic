@@ -1,23 +1,51 @@
 import Layout from '../../common/layout/Layout';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './Department.scss';
 const path = process.env.PUBLIC_URL;
 
 export default function Department() {
+	const refSliderWrap = useRef(null);
 	const [Department, setDepartment] = useState([]);
+
+	const prev = () => {
+		const wrap = refSliderWrap.current;
+		wrap.append(wrap.firstElementChild);
+	};
+
+	const next = () => {
+		const wrap = refSliderWrap.current;
+		wrap.prepend(wrap.lastElementChild);
+	};
 
 	useEffect(() => {
 		fetch(`${path}/DB/department.json`)
-			.then((data) => data.json()) //fetch문에 대한 응답 성공시
-			.catch((err) => console.log(err)) //fetch문에 대한 응답 실패시
+			.then((data) => data.json())
+			.catch((err) => console.log(err))
 			.then((json) => {
-				setDepartment(json.members); //json데이터 변환에 대한 응답 성공시
+				setDepartment(json.members);
 			})
-			.catch((err) => console.log(err)); //json데이터 변환에 대한 응답 실패시
+			.catch((err) => console.log(err));
 	}, []);
 
 	return (
 		<Layout title={'Department'}>
+			<div className='sliderBox'>
+				<button className='prev' onClick={prev}>
+					prev
+				</button>
+				<button className='next' onClick={next}>
+					next
+				</button>
+
+				<section className='sliderWrap' ref={refSliderWrap}>
+					<article>1</article>
+					<article>2</article>
+					<article>3</article>
+					<article>4</article>
+					<article>5</article>
+				</section>
+			</div>
+
 			<div className='container'>
 				<div className='infoBox'></div>
 
