@@ -7,16 +7,6 @@ export default function Department() {
 	const refSliderWrap = useRef(null);
 	const [Department, setDepartment] = useState([]);
 
-	const prev = () => {
-		const wrap = refSliderWrap.current;
-		wrap.append(wrap.firstElementChild);
-	};
-
-	const next = () => {
-		const wrap = refSliderWrap.current;
-		wrap.prepend(wrap.lastElementChild);
-	};
-
 	useEffect(() => {
 		fetch(`${path}/DB/department.json`)
 			.then((data) => data.json())
@@ -26,6 +16,15 @@ export default function Department() {
 			})
 			.catch((err) => console.log(err));
 	}, []);
+
+	const next = () => {
+		const wrap = refSliderWrap.current;
+		wrap.append(wrap.firstElementChild);
+	};
+	const prev = () => {
+		const wrap = refSliderWrap.current;
+		wrap.prepend(wrap.lastElementChild);
+	};
 
 	return (
 		<Layout title={'Department'}>
