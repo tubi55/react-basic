@@ -2,7 +2,6 @@ import Layout from '../../common/layout/Layout';
 import Modal from '../../common/modal/Modal';
 import './Gallery.scss';
 import { useState, useEffect, useRef } from 'react';
-import Masonry from 'react-masonry-component';
 
 export default function Gallery() {
 	const refInput = useRef(null);
@@ -13,14 +12,13 @@ export default function Gallery() {
 	const [IsModal, setIsModal] = useState(false);
 	const my_id = '164021883@N04';
 
-	//처음 마운트 데이터 호출 함수
 	const fetchData = async (opt) => {
 		let url = '';
 		const api_key = '2a1a0aebb34012a99c23e13b49175343';
 		const method_interest = 'flickr.interestingness.getList';
 		const method_user = 'flickr.people.getPhotos';
 		const method_search = 'flickr.photos.search';
-		const num = 100;
+		const num = 6;
 
 		if (opt.type === 'interest') {
 			url = `https://www.flickr.com/services/rest/?method=${method_interest}&api_key=${api_key}&per_page=${num}&nojsoncallback=1&format=json`;
@@ -41,7 +39,6 @@ export default function Gallery() {
 		setPics(json.photos.photo);
 	};
 
-	//submit이벤트 발생시 실행할 함수
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setIsUser(false);
@@ -57,7 +54,6 @@ export default function Gallery() {
 		refInput.current.value = '';
 	};
 
-	//myGallery 클릭 이벤트 발생시 실행할 함수
 	const handleClickMy = (e) => {
 		setIsUser(true);
 		if (e.target.classList.contains('on')) return;
@@ -69,7 +65,6 @@ export default function Gallery() {
 		fetchData({ type: 'user', id: my_id });
 	};
 
-	//Interest Gallery 클릭 이벤트 발생시 실행할 함수
 	const handleClickInterest = (e) => {
 		setIsUser(false);
 		if (e.target.classList.contains('on')) return;
@@ -81,7 +76,6 @@ export default function Gallery() {
 		fetchData({ type: 'interest' });
 	};
 
-	//profile 아이디 클릭시 실행할 함수
 	const handleClickProfile = (e) => {
 		if (IsUser) return;
 		fetchData({ type: 'user', id: e.target.innerText });
@@ -116,45 +110,39 @@ export default function Gallery() {
 				</div>
 
 				<div className='picFrame'>
-					<Masonry
-						elementType={'div'}
-						options={{ transitionDuration: '0.5s' }}
-						disableImagesLoaded={false}
-						updateOnEachImageLoad={false}
-					>
-						{Pics.map((data, idx) => {
-							return (
-								<article key={idx}>
-									<div className='inner'>
+					{Pics.map((data, idx) => {
+						return (
+							<article key={idx}>
+								<div className='picWrap'>
+									<img
+										className='pic'
+										src={`https://live.staticflickr.com/${data.server}/${data.id}_${data.secret}_b.jpg`}
+										alt={`https://live.staticflickr.com/${data.server}/${data.id}_${data.secret}_b.jpg`}
+										onClick={(e) => {
+											setActiveURL(e.target.getAttribute('alt'));
+											setIsModal(true);
+										}}
+									/>
+								</div>
+
+								{/* <h2>{data.title}</h2>
+
+									<div className='profile'>
 										<img
-											className='pic'
-											src={`https://live.staticflickr.com/${data.server}/${data.id}_${data.secret}_m.jpg`}
-											alt={`https://live.staticflickr.com/${data.server}/${data.id}_${data.secret}_b.jpg`}
-											onClick={(e) => {
-												setActiveURL(e.target.getAttribute('alt'));
-												setIsModal(true);
+											src={`http://farm${data.farm}.staticflickr.com/${data.server}/buddyicons/${data.owner}.jpg`}
+											alt={data.owner}
+											onError={(e) => {
+												e.target.setAttribute(
+													'src',
+													'https://www.flickr.com/images/buddyicon.gif'
+												);
 											}}
 										/>
-										<h2>{data.title}</h2>
-
-										<div className='profile'>
-											<img
-												src={`http://farm${data.farm}.staticflickr.com/${data.server}/buddyicons/${data.owner}.jpg`}
-												alt={data.owner}
-												onError={(e) => {
-													e.target.setAttribute(
-														'src',
-														'https://www.flickr.com/images/buddyicon.gif'
-													);
-												}}
-											/>
-											<span onClick={handleClickProfile}>{data.owner}</span>
-										</div>
-									</div>
-								</article>
-							);
-						})}
-					</Masonry>
+										<span onClick={handleClickProfile}>{data.owner}</span>
+									</div> */}
+							</article>
+						);
+					})}
 				</div>
 			</Layout>
 
