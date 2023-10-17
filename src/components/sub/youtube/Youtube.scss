@@ -37,3 +37,46 @@
 		}
 	}
 }
+
+//tablet
+.tablet,
+.mobile {
+	.Youtube {
+		.content {
+			article {
+				flex-wrap: wrap;
+
+				&:nth-of-type(even) {
+					flex-direction: row;
+				}
+
+				.titBox {
+					width: 48%;
+				}
+				.conBox {
+					width: 48%;
+				}
+				.picBox {
+					width: 100%;
+					margin-top: 30px;
+				}
+			}
+		}
+	}
+}
+
+//mobile
+.mobile {
+	.Youtube {
+		.content {
+			article {
+				.titBox {
+					width: 100%;
+				}
+				.conBox {
+					width: 100%;
+				}
+			}
+		}
+	}
+}
