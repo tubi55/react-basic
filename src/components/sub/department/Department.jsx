@@ -28,7 +28,7 @@ export default function Department() {
 
 	return (
 		<Layout title={'Department'}>
-			<div className='sliderBox'>
+			{/* <div className='sliderBox'>
 				<button className='prev' onClick={prev}>
 					prev
 				</button>
@@ -43,7 +43,7 @@ export default function Department() {
 					<article>4</article>
 					<article>5</article>
 				</section>
-			</div>
+			</div> */}
 
 			<div className='container'>
 				<div className='infoBox'></div>
