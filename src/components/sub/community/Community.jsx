@@ -1,3 +1,5 @@
+//해당 페이지에서 설명해보라, 혹시 이슈사항은 없었는지?
+
 import Layout from '../../common/layout/Layout';
 import './Community.scss';
 import { useRef, useState, useEffect } from 'react';
