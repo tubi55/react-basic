@@ -1,7 +1,7 @@
 import Layout from '../../common/layout/Layout';
-import './Youtube.scss';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import './Youtube.scss';
 
 export default function Youtube() {
 	const Youtube = useSelector((store) => store.youtube.data);
