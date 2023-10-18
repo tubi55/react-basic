@@ -17,15 +17,15 @@ export default function Layout({ title, children }) {
 			refFrame.current.classList.add('on');
 		}, 300);
 	}, []);
+
 	return (
 		<section ref={refFrame} className={`layout ${title}`}>
+			<h1 ref={refTitle}>{title}</h1>
+			<div className='bar'></div>
+
 			<figure></figure>
 
-			<div className='content'>
-				<h1 ref={refTitle}>{title}</h1>
-				<div className='bar'></div>
-				{children}
-			</div>
+			{children}
 		</section>
 	);
 }

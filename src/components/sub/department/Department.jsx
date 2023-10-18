@@ -1,11 +1,13 @@
 //1.해당 페이지를 어떤식으로 작업했고 어떤 이슈가 있었는지 설명?
 
 import Layout from '../../common/layout/Layout';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Department.scss';
 const path = process.env.PUBLIC_URL;
+
 export default function Department() {
 	const [Department, setDepartment] = useState([]);
+	const [History, setHistory] = useState([]);
 
 	useEffect(() => {
 		fetch(`${path}/DB/department.json`)
@@ -15,27 +17,52 @@ export default function Department() {
 				setDepartment(json.members);
 			})
 			.catch((err) => console.log(err));
+
+		fetch(`${path}/DB/history.json`)
+			.then((data) => data.json())
+			.catch((err) => console.log(err))
+			.then((json) => {
+				setHistory(json.history);
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
 	return (
 		<Layout title={'Department'}>
-			<div className='container'>
-				<div className='infoBox'></div>
+			<section id='historyBox'>
+				<h2>History</h2>
+				<div className='con'>
+					{History.map((data, idx) => {
+						return (
+							<React.Fragment key={idx}>
+								<h3>{Object.keys(data)[0]}</h3>
+								<ul>
+									{Object.values(data)[0].map((val, idx) => (
+										<li key={idx}>{val}</li>
+									))}
+								</ul>
+							</React.Fragment>
+						);
+					})}
+				</div>
+			</section>
+			<section id='memberBox'>
+				<h2>Members</h2>
 
-				<div className='memberBox'>
+				<div className='con'>
 					{Department.map((member, idx) => {
 						return (
 							<article key={idx}>
 								<div className='pic'>
 									<img src={`${path}/img/${member.pic}`} alt={member.name} />
 								</div>
-								<h2>{member.name}</h2>
+								<h3>{member.name}</h3>
 								<p>{member.position}</p>
 							</article>
 						);
 					})}
 				</div>
-			</div>
+			</section>
 		</Layout>
 	);
 }
