@@ -1,10 +1,11 @@
 .Department {
-	#historyBox {
+	> section {
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		margin-top: 100px;
 		margin-bottom: 200px;
+		flex-wrap: wrap;
 
 		h2 {
 			width: 20%;
@@ -22,7 +23,10 @@
 				opacity: 0.8;
 				font-style: italic;
 			}
-
+		}
+	}
+	#historyBox {
+		.con {
 			ul {
 				margin-top: 20px;
 				margin-bottom: 80px;
@@ -40,22 +44,10 @@
 		}
 	}
 	#memberBox {
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-
-		h2 {
-			width: 20%;
-			font-size: 3rem;
-			opacity: 0.8;
-		}
 		.con {
-			padding-left: 80px;
-			border-left: 1px solid #aaa;
-			width: 75%;
 			display: flex;
-			justify-content: space-between;
 			flex-wrap: wrap;
+			justify-content: space-between;
 
 			article {
 				width: 31%;
@@ -77,6 +69,73 @@
 					font-size: 1.4rem;
 					opacity: 0.8;
 					margin-bottom: 10px;
+				}
+			}
+		}
+	}
+}
+
+.tablet,
+.mobile {
+	.Department {
+		> section {
+			h2 {
+				width: 100%;
+				margin-bottom: 50px;
+				border-bottom: 1px solid #999;
+				padding-bottom: 20px;
+			}
+			.con {
+				padding-left: 0px;
+				border-left: none;
+				width: 100%;
+			}
+		}
+		#historyBox {
+			.con {
+				ul {
+					margin-top: 20px;
+					margin-bottom: 80px;
+					opacity: 0.7;
+
+					li {
+						line-height: 1.3;
+						font-style: italic;
+					}
+
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+		#memberBox {
+			.con {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+
+				article {
+					width: 31%;
+					margin-bottom: 50px;
+
+					.pic {
+						width: 100%;
+						height: 300px;
+						margin-bottom: 20px;
+
+						img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+						}
+					}
+					h3 {
+						font-weight: bold;
+						font-size: 1.4rem;
+						opacity: 0.8;
+						margin-bottom: 10px;
+					}
 				}
 			}
 		}
