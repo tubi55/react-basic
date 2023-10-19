@@ -5,8 +5,11 @@
 	justify-content: space-between;
 
 	.titBox {
-		width: 35%;
+		width: 30%;
+		height: 100%;
 		border: 1px solid blue;
+		transform: translateX(15vw);
+		padding: 10vw 0;
 	}
 
 	.swiper {
