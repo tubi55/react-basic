@@ -10,8 +10,8 @@ function Main() {
 		<main className='mainWrap'>
 			<Visual />
 			<News />
-			<Info />
 			<Pics />
+			<Info />
 			<Btns />
 		</main>
 	);
