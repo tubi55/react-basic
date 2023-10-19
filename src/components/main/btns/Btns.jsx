@@ -1,5 +1,5 @@
 import './Btns.scss';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 function Btns() {
 	const refBtns = useRef(null);
