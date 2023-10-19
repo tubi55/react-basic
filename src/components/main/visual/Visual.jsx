@@ -9,7 +9,12 @@ function Visual() {
 
 	return (
 		<section className='visual'>
-			<Swiper slidesPerView={3} spaceBetween={50}>
+			<Swiper
+				slidesPerView={3}
+				spaceBetween={50}
+				loop={true}
+				centeredSlides={true}
+			>
 				{data.map((vid, idx) => {
 					if (idx >= 5) return null;
 					return (
@@ -22,6 +27,7 @@ function Visual() {
 									/>
 								</div>
 								<h2>{vid.snippet.title}</h2>
+								<button>VIEW</button>
 							</div>
 						</SwiperSlide>
 					);
