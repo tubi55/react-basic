@@ -22,7 +22,7 @@ a {
 body {
 	background: #efefef;
 	width: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 html {
@@ -45,4 +45,10 @@ fieldset {
 	position: absolute;
 	top: -9999px;
 	opacity: 0;
+}
+
+.mobile {
+	* {
+		word-break: break-all;
+	}
 }
