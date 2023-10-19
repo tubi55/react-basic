@@ -48,6 +48,7 @@ function Btns() {
 				.map((el, idx) => {
 					return (
 						<li
+							className={idx === 0 ? 'on' : ''}
 							key={idx}
 							onClick={() => {
 								new Anime(window, {

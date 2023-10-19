@@ -14,7 +14,7 @@ function Visual() {
 			<div className='titBox'>
 				<ul>
 					{data.map((tit, idx) => {
-						if (idx >= 5) return null;
+						if (idx >= 7) return null;
 						return (
 							<li key={idx} className={idx === Index ? 'on' : ''}>
 								<h3>{tit.snippet.title}</h3>
