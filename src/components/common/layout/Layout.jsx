@@ -12,7 +12,7 @@ export default function Layout({ title, children }) {
 	const splitText = useSplitText();
 
 	useEffect(() => {
-		splitText(refTitle, 0.1);
+		splitText(refTitle, 0.1, 0);
 		setTimeout(() => {
 			refFrame.current.classList.add('on');
 		}, 300);
