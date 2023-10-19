@@ -1,9 +1,11 @@
 header {
 	width: 70vw;
-	padding: 30px 2px;
+	padding: 0px 2px;
+	height: 100px;
 	border-bottom: 1px solid #aaa;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	margin: 0 auto;
 
 	h1 {
@@ -30,6 +32,7 @@ header {
 .tablet,
 .mobile {
 	.header {
+		width: 80vw;
 		ul {
 			display: none;
 		}

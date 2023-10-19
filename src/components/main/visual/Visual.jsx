@@ -29,7 +29,7 @@ function Visual() {
 			</div>
 			<Swiper
 				slidesPerView={1}
-				spaceBetween={0}
+				spaceBetween={50}
 				loop={true}
 				centeredSlides={true}
 				onSlideChange={(el) => setIndex(el.realIndex)}
