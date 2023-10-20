@@ -1,5 +1,4 @@
 //해당 유튜브 페이지 작업에 대해서 설명, 이슈사항은 없었는지
-
 import Layout from '../../common/layout/Layout';
 import { Link } from 'react-router-dom';
 import { useYoutubeQuery } from '../../../hooks/useYoutube';
