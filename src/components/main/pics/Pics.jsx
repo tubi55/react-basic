@@ -5,13 +5,34 @@ function Pics() {
 	const frame = useRef(null);
 	const box = useRef(null);
 
+	const setPicHeight = () => {
+		const w = box.current.querySelectorAll('div')[0].clientWidth;
+		const h = box.current.querySelectorAll('div')[0].clientHeight;
+		console.log(w);
+
+		if (w > h) {
+			console.log('넓이 더큼');
+			frame.current.style.height =
+				box.current.children[0].clientWidth * 4 - (w - h) + 'px';
+		} else {
+			console.log('높이 더 큼');
+			frame.current.style.height =
+				box.current.children[0].clientWidth * 4 + (h - w) + 'px';
+		}
+	};
+
 	const handleScroll = () => {
 		const pos = frame.current.offsetTop;
 		let scroll = window.scrollY;
 		//해당 스크롤값이 Pics 영역에 도달했을때 0으로 보정해놓은 값
 		let scroll2 = scroll - pos;
-		console.log('scroll', scroll);
-		console.log('scoll2', scroll2);
+		//console.log('scroll', scroll);
+		//console.log('scoll2', scroll2);
+
+		setPicHeight();
+
+		const abc = pos + frame.current.clientHeight - window.innerWidth;
+		console.log('스크롤 조건', abc);
 
 		//가로 스크롤 wrapping 섹션 안에 들어왔을때
 		if (
@@ -19,15 +40,17 @@ function Pics() {
 			scroll < pos + frame.current.clientHeight - window.innerWidth
 		) {
 			console.log('활성화영역 안쪽으로 들어옴');
+			//setPicHeight();
 			box.current.style.position = 'fixed';
 			box.current.style.left = -scroll2 + 'px';
 			box.current.style.top = '0px';
 			//활성화 영역 스크롤 아래쪽으로 벗어났을떄
 		} else if (scroll >= pos + frame.current.clientHeight - window.innerWidth) {
 			console.log('활성화 섹션 아래쪽으로 벗어남');
+			//setPicHeight();
 			box.current.style.position = 'absolute';
 			box.current.style.top =
-				frame.current.clientHeight - window.innerWidth + 'px';
+				frame.current.clientHeight - window.innerHeight + 'px';
 			box.current.style.left = -window.innerWidth * 3 + 'px';
 			//활성화 영역 스크롤 위쪽으로 벗어났을때
 		} else {
@@ -40,10 +63,13 @@ function Pics() {
 	};
 
 	useEffect(() => {
+		//window.addEventListener('resize', setPicHeight);
+		//frame.current.style.height = box.current.innerWidth * 4 + 'px';
 		window.addEventListener('scroll', handleScroll);
-		// return () => {
-		// 	window.removeEventListener('scroll', handleScroll);
-		// };
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			//window.removeEventListener('resize', setPicHeight);
+		};
 	}, []);
 	return (
 		//섹션의 높이값은 자식 요소의 4개 div요소 넓이값을 합친 총합의 크기만큼 높이값을 확보해야됨 (그 크기 만큼 Pics영역안에서 스크롤 이벤트를 발생시켜야 하기 때문)
