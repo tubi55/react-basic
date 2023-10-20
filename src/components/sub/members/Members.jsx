@@ -9,6 +9,7 @@ import { useState, useRef, useEffect } from 'react';
 //아직 state에 값이 담기지 않았는데 unmount된 경우이므로 뜨는 오류
 //컴포넌트 unmount시 값을 Mounted값을 false로 변경해주고 해당 값이 true일때에만 state변경처리
 export default function Members() {
+	//console.log('test');
 	const initVal = {
 		userid: '',
 		pwd1: '',
@@ -58,6 +59,7 @@ export default function Members() {
 	};
 
 	const check = (value) => {
+		console.log('check', value);
 		const num = /[0-9]/;
 		const txt = /[a-zA-Z]/;
 		const spc = /[!@#$%^*()_]/;
@@ -137,12 +139,14 @@ export default function Members() {
 	//useDebounce는 state의 변경횟수 자체를 줄이는게 아니라.
 	//해당 state에 따라 호출되는 함수의 빈도를 줄임[]
 	useEffect(() => {
-		console.log('Val state값 변경에 의해서 showCheck함수 호출');
+		//console.log('Val state값 변경에 의해서 showCheck함수 호출');
 		showCheck();
-		console.log(DebouncedVal);
-
-		return () => setMounted(false);
 	}, [DebouncedVal]);
+
+	//컴포넌트 언마운트시 한번만 Mounted값을 변경해야 되므로 의존성배열이 비어있는 상태에서 clean-up함수 리턴
+	useEffect(() => {
+		return () => setMounted(false);
+	}, []);
 
 	return (
 		<Layout title={'Members'}>
