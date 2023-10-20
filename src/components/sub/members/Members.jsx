@@ -9,8 +9,8 @@ export default function Members() {
 		pwd1: '',
 		pwd2: '',
 		email: '',
-		gender: false,
-		interests: false,
+		gender: '',
+		interests: [],
 		edu: '',
 		comments: '',
 	};
@@ -20,6 +20,8 @@ export default function Members() {
 	const [Val, setVal] = useState(initVal);
 	const [Errs, setErrs] = useState({});
 
+	//기존의 onchange이벤트가 발생할때마다 변경되는 Val값을 useDebounce를 이용해서
+	//Debouncing이 적용된 또다른 State를 전달 받음
 	const DebouncedVal = useDebounce(Val);
 
 	const resetForm = (e) => {
@@ -39,17 +41,14 @@ export default function Members() {
 		setVal({ ...Val, [name]: value });
 	};
 
-	const handleRadio = (e) => {
-		const { name, checked } = e.target;
-		setVal({ ...Val, [name]: checked });
-	};
-
 	const handleCheck = (e) => {
 		const { name } = e.target;
-		let isChecked = false;
+		let checkArr = [];
 		const inputs = e.target.parentElement.querySelectorAll('input');
-		inputs.forEach((input) => input.checked && (isChecked = true));
-		setVal({ ...Val, [name]: isChecked });
+		//checkbox요소를 반복돌면서 해당 요소가 체크되어 있다면 해당 value값을 배열에 담아주고
+		//배열을 state에 담아줌
+		inputs.forEach((input) => input.checked && checkArr.push(input.value));
+		setVal({ ...Val, [name]: checkArr });
 	};
 
 	const check = (value) => {
@@ -98,7 +97,7 @@ export default function Members() {
 		}
 
 		//관심사인증
-		if (!value.interests) {
+		if (value.interests.length === 0) {
 			errs.interests = '관심사를 하나이상 체크해주세요.';
 		}
 
@@ -127,9 +126,14 @@ export default function Members() {
 		setErrs(check(DebouncedVal));
 	};
 
+	//의존성 배열에 Debouncing이 적용된 state값을 등록해서
+	//함수의 핸들러함수 호출의 빈도를 줄여줌
+	//useDebounce는 state의 변경횟수 자체를 줄이는게 아니라.
+	//해당 state에 따라 호출되는 함수의 빈도를 줄임[]
 	useEffect(() => {
 		console.log('Val state값 변경에 의해서 showCheck함수 호출');
 		showCheck();
+		console.log(DebouncedVal);
 	}, [DebouncedVal]);
 
 	return (
@@ -220,7 +224,8 @@ export default function Members() {
 										type='radio'
 										name='gender'
 										id='female'
-										onChange={handleRadio}
+										defaultValue='female'
+										onChange={handleChange}
 									/>
 
 									<label htmlFor='male'>male</label>
@@ -228,7 +233,8 @@ export default function Members() {
 										type='radio'
 										name='gender'
 										id='male'
-										onChange={handleRadio}
+										defaultValue='male'
+										onChange={handleChange}
 									/>
 									{Errs.gender && <p>{Errs.gender}</p>}
 								</td>
@@ -243,6 +249,7 @@ export default function Members() {
 										type='checkbox'
 										id='sports'
 										name='interests'
+										defaultValue='sports'
 										onChange={handleCheck}
 									/>
 
@@ -251,6 +258,7 @@ export default function Members() {
 										type='checkbox'
 										id='game'
 										name='interests'
+										defaultValue='game'
 										onChange={handleCheck}
 									/>
 
@@ -259,6 +267,7 @@ export default function Members() {
 										type='checkbox'
 										id='music'
 										name='interests'
+										defaultValue='music'
 										onChange={handleCheck}
 									/>
 									{Errs.interests && <p>{Errs.interests}</p>}
