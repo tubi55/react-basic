@@ -19,6 +19,7 @@ function Btns() {
 
 	//브라우저 스크롤시 버튼을 반복돌면서 스크롤이 특정 섹션영역을 넘어가면 해당 순번의 버튼 활성화 함수
 	const activation = () => {
+		console.log('activation called');
 		const btns = refBtns.current.querySelectorAll('li');
 		const scroll = window.scrollY;
 
