@@ -98,7 +98,7 @@ export default function Gallery() {
 						disableImagesLoaded={false}
 						updateOnEachImageLoad={false}
 					>
-						{/* 해당 데이터가 어떤이유에서건 없을때 해당 객체안의 property를 호출할때 런타이미 에러가 뜨는 경우이므로 배열값 자체가 없으면 렌더링을 안해서 property 오류해결 */}
+						{/* 해당 데이터가 어떤이유에서건 없을때 해당 객체안의property를 호출할때 런타이미 에러가 뜨는 경우이므로 배열값 자체가 없으면 렌더링을 안해서 property 오류해결 */}
 						{Pics.length !== 0 &&
 							Pics.map((data, idx) => {
 								return (
