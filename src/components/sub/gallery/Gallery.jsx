@@ -7,7 +7,7 @@
 import Layout from '../../common/layout/Layout';
 import Modal from '../../common/modal/Modal';
 import './Gallery.scss';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import Masonry from 'react-masonry-component';
 import { open } from '../../../redux/modalSlice';
@@ -22,7 +22,6 @@ export default function Gallery() {
 	const my_id = '164021883@N04';
 	const [Opt, setOpt] = useState({ type: 'user', id: my_id });
 	const { data: Pics, isSuccess } = useFlickrQuery(Opt);
-	console.log('isSuccess', isSuccess);
 
 	//submit이벤트 발생시 실행할 함수
 	const handleSubmit = (e) => {
