@@ -3,28 +3,17 @@
 	2. ssr방식에 비해 csr방식의 장점과 단점에 대해서 설명
 	3. react 프로젝트에서 public, src 폴더를 통해서 어떤식으로 빌드되면서 화면 렌더링	 
 */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import modalReducer from './redux/modalSlice';
-import menuReducer from './redux/menuSlice';
-
-const store = configureStore({
-	reducer: {
-		modal: modalReducer,
-		menu: menuReducer,
-	},
-});
+import { GlobalProvider } from './hooks/useGlobalContext';
 
 ReactDOM.render(
 	<BrowserRouter>
-		<Provider store={store}>
+		<GlobalProvider>
 			<App />
-		</Provider>
+		</GlobalProvider>
 	</BrowserRouter>,
 	document.getElementById('root')
 );
