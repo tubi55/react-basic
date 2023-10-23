@@ -128,18 +128,18 @@ function Members() {
 		}
 	};
 
-	const showCheck = () => {
-		Mounted && setErrs(check(DebouncedVal));
-	};
-
 	//의존성 배열에 Debouncing이 적용된 state값을 등록해서
 	//함수의 핸들러함수 호출의 빈도를 줄여줌
 	//useDebounce는 state의 변경횟수 자체를 줄이는게 아니라.
 	//해당 state에 따라 호출되는 함수의 빈도를 줄임[]
 	useEffect(() => {
+		const showCheck = () => {
+			console.log('showCheck');
+			Mounted && setErrs(check(DebouncedVal));
+		};
 		//console.log('Val state값 변경에 의해서 showCheck함수 호출');
 		showCheck();
-	}, [DebouncedVal]);
+	}, [DebouncedVal, Mounted]);
 
 	//컴포넌트 언마운트시 한번만 Mounted값을 변경해야 되므로 의존성배열이 비어있는 상태에서 clean-up함수 리턴
 	useEffect(() => {
