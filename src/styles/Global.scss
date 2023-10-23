@@ -4,7 +4,6 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	color: #111;
 	font-weight: normal;
 	font-family: 'Nanum Myeongjo';
 }
@@ -20,9 +19,22 @@ a {
 }
 
 body {
-	background: #efefef;
 	width: 100%;
 	overflow-x: hidden;
+
+	main {
+		width: 100%;
+		background: var(--bg);
+		color: var(--color);
+	}
+	main.light {
+		background: var(--bg);
+		color: var(--color);
+	}
+	main.dark {
+		background: var(--darkBg);
+		color: var(--darkColor);
+	}
 }
 
 html {
