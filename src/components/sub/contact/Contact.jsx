@@ -1,7 +1,7 @@
 import Layout from '../../common/layout/Layout';
 import './Contact.scss';
 import emailjs from '@emailjs/browser';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 
 export default function Contact() {
 	const form = useRef(null);
@@ -36,24 +36,24 @@ export default function Contact() {
 		},
 	]);
 
-	//위의 정보값을 활용한 마커 객체 생성
-	const marker = new kakao.maps.Marker({
-		position: info.current[Index].latlng,
-		image: new kakao.maps.MarkerImage(
-			info.current[Index].imgSrc,
-			info.current[Index].imgSize,
-			info.current[Index].imgPos
-		),
-	});
-
 	//지도위치를 중심으로 이동시키는 핸들러 함수 제작
-	const setCenter = () => {
+	const setCenter = useCallback(() => {
 		console.log('지도화면에서 마커 가운데 보정');
 		// 지도 중심을 이동 시킵니다
 		instance.current.setCenter(info.current[Index].latlng);
-	};
+	}, [Index]);
 
 	useEffect(() => {
+		//위의 정보값을 활용한 마커 객체 생성
+		const marker = new kakao.maps.Marker({
+			position: info.current[Index].latlng,
+			image: new kakao.maps.MarkerImage(
+				info.current[Index].imgSrc,
+				info.current[Index].imgSize,
+				info.current[Index].imgPos
+			),
+		});
+
 		//Index값이 변경될때마다 새로운 지도 레이어가 중첩되므로
 		//일단은 기존 map안의 모든 요소를 없애서 초기화
 		map.current.innerHTML = '';
@@ -95,14 +95,14 @@ export default function Contact() {
 		return () => {
 			window.removeEventListener('resize', setCenter);
 		};
-	}, [Index]); //Index값이 변경될때마다 지도화면이 다시 갱신되어야 하므로 Index값을 의존성 배열에 등록
+	}, [Index, kakao, setCenter]); //Index값이 변경될때마다 지도화면이 다시 갱신되어야 하므로 Index값을 의존성 배열에 등록
 
 	useEffect(() => {
 		//traffic 값이 바뀔때마다 실행될 구문
 		Traffic
 			? instance.current.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC)
 			: instance.current.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
-	}, [Traffic]);
+	}, [Traffic, kakao]);
 
 	const resetForm = () => {
 		const nameForm = form.current.querySelector('.nameEl');
