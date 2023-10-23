@@ -4,7 +4,7 @@ import { FaBars } from 'react-icons/fa';
 import { useGlobalData } from '../../../hooks/useGlobalContext';
 
 export default function Header({ isMain }) {
-	const { MenuOpen, setMenuOpen } = useGlobalData();
+	const { MenuOpen, setMenuOpen, setTheme, Theme } = useGlobalData();
 
 	return (
 		<header className='header  myScroll'>
@@ -51,6 +51,10 @@ export default function Header({ isMain }) {
 				color={'#333'}
 				onClick={() => setMenuOpen(!MenuOpen)}
 			/>
+
+			<span className='btnTheme' onClick={() => setTheme(!Theme)}>
+				Theme
+			</span>
 		</header>
 	);
 }
