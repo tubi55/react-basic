@@ -148,3 +148,11 @@ export default function Gallery() {
 //이벤트가 발생할때마다 생성된 액션객체를 계속해서 dispatch로 reducer에 데이터 변경 요청을 하도록 처리했다.
 
 //두번재 이슈1- 내 아이디 갤러리나 사용자 아이디를 클릭해서 출력하는 user 타입의 갤러리 렌더링시에는 사용자 아이디를 클릭할때마다 중복 데이터 호출이 일어나기 때문에 해당 문제점을 해결하기 위해서 user타입의 갤러리가 렌더링될때에만 state값 변경하고 state에 따라서 사용자 아이디의 클릭 이벤트를 막음으로서 불필요한 서버 데이터 호출을 방지했다.
+
+/*
+	Flickr data를 리덕스 툴킷이 아닌 react-query기반의 커스텀훅으로 대체한 이유
+	- 이전 Youtube.jsx의 주석 설명 참조
+	- 해당 데이터는 My Gallery, Interest Gallery를 클릭할때마다 하루동안에는 같은 데이터임에도 불구하고 이벤트 호출시 refetching처리하는데
+	- react-query를 이용하여 같은 데이터의 경우 Caching처리를 해놓았기 때문에 같은 데이터인 경우에는 불필요하게 refecthing하는 것이 아닌
+	- Caching된 데이터를 재활용함으로서 불필요한 서버 요청 방지 (Netwokr탭에서 보면 My Gallery, Interest Gallery 버튼 클릭시 두번째 부터는 데이터가 refetching되지 않는것을 확인할 수 있음)
+*/
